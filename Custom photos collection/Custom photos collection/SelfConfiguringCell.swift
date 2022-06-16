@@ -9,6 +9,6 @@ import UIKit
 
 protocol SelfConfiguringCell {
     static var reuseID: String { get }
-    func configure(with intValue: Int)
+    func configure(with image: UIImage, title: String)
 }
 
