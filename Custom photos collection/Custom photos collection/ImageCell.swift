@@ -11,30 +11,30 @@ class ImageCell: UICollectionViewCell, SelfConfiguringCell {
     
     static let reuseID: String = "ImageCell"
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        let boldConfig = UIImage.SymbolConfiguration(weight: .medium)
-        imageView.image = UIImage(systemName: "car", withConfiguration: boldConfig)
-        
-        return imageView
+    private let numberLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        label.textAlignment = .center
+        label.text = "1"
+        label.numberOfLines = 3
+        return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(imageView)
-        setupImageViewConstraints()
+        self.addSubview(numberLabel)
+        setNumberLabelConstraints()
     }
     
-    private func setupImageViewConstraints() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+    private func setNumberLabelConstraints() {
+        numberLabel.translatesAutoresizingMaskIntoConstraints = false
+        numberLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        numberLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        numberLabel.widthAnchor.constraint(equalToConstant: self.frame.width - 50).isActive = true
     }
     
-    func configure(with intValue: Int) {
-        print("intValue")
+    func configure(with image: UIImage, title: String) {
+        self.numberLabel.text = title
     }
     
     required init?(coder: NSCoder) {

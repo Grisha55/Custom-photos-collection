@@ -15,6 +15,8 @@
 		BEBE8F82285B23A2002816FC /* NumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBE8F81285B23A2002816FC /* NumberCell.swift */; };
 		BEBE8F84285B2F21002816FC /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBE8F83285B2F21002816FC /* ImageCell.swift */; };
 		BEBE8F86285B37BA002816FC /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBE8F85285B37BA002816FC /* SelfConfiguringCell.swift */; };
+		BEBE8F88285BBED0002816FC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBE8F87285BBED0002816FC /* NetworkService.swift */; };
+		BEBE8F8A285BC143002816FC /* Albums.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBE8F89285BC143002816FC /* Albums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		BEBE8F81285B23A2002816FC /* NumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCell.swift; sourceTree = "<group>"; };
 		BEBE8F83285B2F21002816FC /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		BEBE8F85285B37BA002816FC /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
+		BEBE8F87285BBED0002816FC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		BEBE8F89285BC143002816FC /* Albums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Albums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 			children = (
 				BEA22314285A5FDD0068280A /* AppDelegate.swift */,
 				BEA22316285A5FDD0068280A /* SceneDelegate.swift */,
+				BEBE8F87285BBED0002816FC /* NetworkService.swift */,
+				BEBE8F89285BC143002816FC /* Albums.swift */,
 				BEA22318285A5FDD0068280A /* CollectionVC.swift */,
 				BEBE8F83285B2F21002816FC /* ImageCell.swift */,
 				BEBE8F81285B23A2002816FC /* NumberCell.swift */,
@@ -146,9 +152,11 @@
 				BEBE8F82285B23A2002816FC /* NumberCell.swift in Sources */,
 				BEA22319285A5FDD0068280A /* CollectionVC.swift in Sources */,
 				BEA22315285A5FDD0068280A /* AppDelegate.swift in Sources */,
+				BEBE8F8A285BC143002816FC /* Albums.swift in Sources */,
 				BEA22317285A5FDD0068280A /* SceneDelegate.swift in Sources */,
 				BEBE8F84285B2F21002816FC /* ImageCell.swift in Sources */,
 				BEBE8F86285B37BA002816FC /* SelfConfiguringCell.swift in Sources */,
+				BEBE8F88285BBED0002816FC /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

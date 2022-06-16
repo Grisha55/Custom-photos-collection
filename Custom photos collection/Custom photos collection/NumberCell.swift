@@ -11,30 +11,34 @@ class NumberCell: UICollectionViewCell, SelfConfiguringCell {
     
     static var reuseID: String = "NumberCell"
     
-    private let numberLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        label.textAlignment = .center
-        label.text = "1"
-        return label
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        let boldConfig = UIImage.SymbolConfiguration(weight: .medium)
+        imageView.image = UIImage(systemName: "car", withConfiguration: boldConfig)
+        
+        return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(numberLabel)
+        self.addSubview(imageView)
         self.backgroundColor = .purple
-        setNumberLabelConstraints()
+        setupImageViewConstraints()
     }
     
-    func configure(with intValue: Int) {
-        self.numberLabel.text = "\(intValue)"
+    func configure(with image: UIImage, title: String) {
+        self.imageView.image = image
     }
     
-    private func setNumberLabelConstraints() {
-        numberLabel.translatesAutoresizingMaskIntoConstraints = false
-        numberLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        numberLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+    private func setupImageViewConstraints() {
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
     }
+    
+    
 
     
     required init?(coder: NSCoder) {

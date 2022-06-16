@@ -21,20 +21,33 @@ class CollectionVC: UIViewController {
         }
     }
     
+    var albums = [Albums]()
+    
     var dataSource: UICollectionViewDiffableDataSource<SectionKind, Int>! = nil
     
     var collectionView: UICollectionView! = nil
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
         
         setupNavigationBar()
-        configureCollectionView()
+        getDataIntoCollectionView()
     }
     
     // MARK: Methods
+    
+    private func getDataIntoCollectionView() {
+        NetworkService().getDataFromService { [weak self] albums in
+            DispatchQueue.main.async {
+                self?.albums = albums
+                self?.configureCollectionView()
+                self?.collectionView.reloadData()
+            }
+            
+        }
+    }
     
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
@@ -53,6 +66,11 @@ class CollectionVC: UIViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reuseID, for: indexPath) as? T else {
             fatalError("Error \(cellType)")
         }
+        let album = albums[indexPath.row]
+        guard let imageURL = URL(string: album.url) else { return UITableViewCell() as! T }
+        guard let data = try? Data(contentsOf: imageURL) else { return UITableViewCell() as! T}
+        cell.configure(with: (UIImage(data: data) ?? UIImage(systemName: "car"))!, title: album.title)
+        
         return cell
     }
     
