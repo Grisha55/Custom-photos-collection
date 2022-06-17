@@ -21,6 +21,13 @@ class CollectionVC: UIViewController {
         }
     }
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .large
+        indicator.color = .black
+        return indicator
+    }()
+    
     var albums = [Albums]()
     
     var dataSource: UICollectionViewDiffableDataSource<SectionKind, Int>! = nil
@@ -29,9 +36,12 @@ class CollectionVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         
         self.view.backgroundColor = .white
         
+        setActivityIndicatorConstraints()
         setupNavigationBar()
         getDataIntoCollectionView()
     }
@@ -43,6 +53,8 @@ class CollectionVC: UIViewController {
             DispatchQueue.main.async {
                 self?.albums = albums
                 self?.configureCollectionView()
+                self?.activityIndicator.stopAnimating()
+                self?.activityIndicator.isHidden = true
                 self?.collectionView.reloadData()
             }
             
@@ -62,14 +74,25 @@ class CollectionVC: UIViewController {
         reloadData()
     }
     
+    // MARK: - get UIImage from string
+    private func getImageFromURL(urlStr: String) -> UIImage {
+        guard let url = URL(string: urlStr) else { return UIImage(systemName: "car")! }
+        var image: UIImage! = nil
+        do {
+            let data = try Data(contentsOf: url)
+            image = UIImage(data: data)
+        } catch {
+            print(error.localizedDescription)
+        }
+        return image
+    }
+    
     func configure<T: SelfConfiguringCell>(cellType: T.Type, with intValue: Int, for indexPath: IndexPath) -> T {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reuseID, for: indexPath) as? T else {
             fatalError("Error \(cellType)")
         }
         let album = albums[indexPath.row]
-        guard let imageURL = URL(string: album.url) else { return UITableViewCell() as! T }
-        guard let data = try? Data(contentsOf: imageURL) else { return UITableViewCell() as! T}
-        cell.configure(with: (UIImage(data: data) ?? UIImage(systemName: "car"))!, title: album.title)
+        cell.configure(with: getImageFromURL(urlStr: album.url), title: album.title)
         
         return cell
     }
@@ -148,6 +171,12 @@ class CollectionVC: UIViewController {
         return section
     }
     
+    private func setActivityIndicatorConstraints() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+    }
+    
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Photos"
@@ -156,3 +185,21 @@ class CollectionVC: UIViewController {
 }
 
 // MARK: - SwiftUI
+import SwiftUI
+struct FlowProvider: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable {
+        
+        let collectionVC = CollectionVC()
+        func makeUIViewController(context: UIViewControllerRepresentableContext<FlowProvider.ContainerView>) -> CollectionVC {
+            return collectionVC
+        }
+        
+        func updateUIViewController(_ uiViewController: FlowProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<FlowProvider.ContainerView>) {
+            
+        }
+    }
+}
